@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+
+{% block page_independent_content %}
+	
+	<p style='margin: 0cm;font-size:11.0pt;font-family:"Calibri",sans-serif;line-height:normal;'><strong><span style='font-size: 48px; font-family: "Times New Roman", serif; color: #055D7A;'><em>Artists Directory</em></span></strong></p>
+	<p style='margin: 0cm;font-size:11.0pt;font-family:"Calibri",sans-serif;line-height:normal;'><strong><span style='font-size: 20px; font-family: "Times New Roman", serif;'>with upcoming release dates and Infos ...</span></strong></p>
+	<br><br>
+	
+	<table class="table table-hover table-responsive">
+		<thead>
+		<tr>
+			<th scope="col"><h5 style="color: #055D7A">Musician</h5></th>
+			<th scope="col"><h5 style="color: #055D7A">Email</h5></th>
+			<th scope="col"><h5 style="color: #055D7A">Album</h5></th>
+			<th scope="col"><h5 style="color: #055D7A">Instruments</h5></th>
+			<th scope="col"><h5 style="color: #055D7A">Release Date</h5></th>
+			<th scope="col"><h5 style="color: #055D7A">Album Rating</h5></th>
+		</tr>
+		</thead>
+		<tbody class="table-group-divider" style="color: #055D7A">
+		
+		{% for each in albums %}
+			
+			<tr>
+				<td><a href="{% url 'edit_profile' %}" class="text-decoration-none text-dark">{{ each.musician.first_name }} {{ each.musician.last_name }}</a></td>
+				<td><small>{{ each.musician.email }}</small></td>
+				<td><p>{{ each.name }}</p></td>
+				<td>
+					{% for i in each.instruments.all %}
+						<small>{{ i.name }}</small><br>
+					{% endfor %}
+				</td>
+				<td>{{ each.release_date }}</td>
+				<td style="color: #ffa534">{{ each.rating }}</td>
+			</tr>
+		
+		{% endfor %}
+		
+		</tbody>
+	</table>
+
+{% endblock %}
